@@ -1,9 +1,0 @@
-{
-	"folders": [
-		{
-			"uri": "vscode-remote://wsl+ubuntu/home/superdude/z-prefix-base"
-		}
-	],
-	"remoteAuthority": "wsl+Ubuntu",
-	"settings": {}
-}
