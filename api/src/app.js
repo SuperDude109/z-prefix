@@ -101,7 +101,7 @@ app.get('/', (request, response) => {
             )
             .then(data=> {return res.end("success")})
             .catch(err=>{
-                return res.end("invalid user_id")
+                return res.end("Title is already taken")
             })
             
         
@@ -116,8 +116,8 @@ app.get('/', (request, response) => {
         let values = {first_name,last_name,username,password}
         await knex('users')
             .insert({...values})
-            .catch(err=>res.end('new user made!'))
             .then(res.status(200).send('new user made!'))
+            .catch(err=>res.end('User unable to be made!'))
      }) 
 
 }
