@@ -36,21 +36,19 @@ app.get('/', (request, response) => {
 
 
     app.get('/posts',  (req, res) => {
+        console.log("Here is the req",req.body)
         knex('posts')
             .select('*')
             .then( posts => 
-                 posts.map(post => (
-                    {
-                        user_id: (post.user_id),
-                        title: post.title,
-                        content: post.content,
-                    }
-                ))  
+                {
+                    //using a filter we are able to get all posts or a user posts
+                    return posts.filter(post => post.user_id==(req.body.user_id?req.body.user_id:post.user_id))
+                }
             )
             .then(responseData => res.status(200).send(responseData))
     })
     
-    app.get('/posts/getusername', (req,res)=>{//converts a userID into a username
+    app.get('/user/getusername', (req,res)=>{//converts a userID into a username
         let {user_id}= req.body;
         knex('users')
             .select("*")
@@ -59,7 +57,7 @@ app.get('/', (request, response) => {
                 res.status(200).send({username:data[0].username})
             })
     })
-    app.get('/posts/getuserid', (req,res)=>{//converts a userID into a username
+    app.get('/user/getuserid', (req,res)=>{//converts a userID into a username
         let {username}= req.body;
         
         knex('users')
@@ -69,22 +67,7 @@ app.get('/', (request, response) => {
                 res.status(200).send({user_id:data[0].id})
             })
     })
-    app.get('/user/posts',(req,res)=>{//gets posts only from a certain user
-        //we will need to filter through our posts and match the ids
-        let {user_id}=req.body
-        knex('posts')
-            .select("*")
-            .where({user_id: user_id})
-            .then(data=> {
-                res.status(200).send(data)
-            })
-    })
-
-    
-    
-
 }
-
 
 //create
 {
@@ -102,9 +85,7 @@ app.get('/', (request, response) => {
             .then(data=> {return res.end("success")})
             .catch(err=>{
                 return res.end("Title is already taken")
-            })
-            
-        
+            })   
     }) 
 
      app.post('/users', async (req, res) => {
@@ -168,7 +149,6 @@ app.get('/', (request, response) => {
 
 }
 
-
 //delete
 {
 app.delete('/users', async (req, res) => {
@@ -191,7 +171,6 @@ app.delete('/posts',  async (req, res) => {
         
     })
 }
-
 
 //validate login
 {
