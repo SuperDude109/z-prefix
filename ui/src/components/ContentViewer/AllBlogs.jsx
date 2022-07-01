@@ -2,7 +2,7 @@
 import React from "react"
 import config from '../../config'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Post from "../Post";
 
 // import config from './config'
@@ -12,13 +12,19 @@ import Post from "../Post";
 
 function AllBlogs() {
   let [posts,setPosts] = useState([])
+
+  useEffect(async()=>{
+    setTimeout(() => {
       fetch(ApiUrl+"/posts/user/0")
-      .then(res => {
-        return res.json()
-      })
-      .then(data => {
-        setPosts([...data])
-      })
+        .then(res => {
+          return res.json()
+        })
+        .then(data => {
+          setPosts([...data])
+        })
+    }, 500);
+  },[posts])
+
  
   return (
     <div className='posts'>

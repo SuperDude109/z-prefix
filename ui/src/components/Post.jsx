@@ -8,7 +8,6 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
 function Post({user_id,title,content}) {
-  console.log("Here is a user id "+user_id)
   let [username,setUsername]=useState("");
   useEffect(
     ()=>fetch(ApiUrl+'/user/getusername/'+user_id)
@@ -47,7 +46,6 @@ function Post({user_id,title,content}) {
       "title": title,
     }),
     };
-    console.log(ApiUrl+"/posts")
     fetch(ApiUrl+"/posts",opts)
   }
 } 

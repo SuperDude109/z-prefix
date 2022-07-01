@@ -12,5 +12,11 @@
       username: "superdude109",
       password:"password"
     },
+    {
+      first_name: "robert",
+      last_name: "jenkins",
+      username: "lameboy",
+      password:"password"
+    }
   ]);
 };
