@@ -1,20 +1,23 @@
-import { useEffect} from 'react';
 import config from "../config";
 /* eslint-disable react/prop-types */
 import React from "react";
 import { useState } from 'react';
+import { useEffect } from "react";
 // import { Route, Routes } from 'react-router-dom';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
 function Post({user_id,title,content}) {
+  console.log("Here is a user id "+user_id)
   let [username,setUsername]=useState("");
-  useEffect(()=>{
-    fetch(ApiUrl+'/user/getuserid/'+user_id)
-    .then(res => res.json())
-    .then(data=>setUsername(data.username))
-  }
-    ,[])
+  useEffect(
+    ()=>fetch(ApiUrl+'/user/getusername/'+user_id)
+      .then(res => res.json())
+      .then(data=>setUsername(data.username))
+      ,[]
+  )
+    
+  
 
   return (
     <div className='post' style={{background:"grey",padding:"1%"}}>

@@ -15,6 +15,7 @@ function Posts() {
   let {values} = useContext(AppContext)
   let {user_id} = values
   let [posts,setPosts] = useState([])
+  
       fetch(ApiUrl+"/posts/user/"+user_id)
       .then(res => {
         return res.json()

@@ -46,20 +46,21 @@ app.get('/', (request, response) => {
                 }
             )
             .then(responseData => {
-                console.log("response data =",responseData)
+                // console.log("response data =",responseData)
                 res.end(JSON.stringify(responseData))})
     })
 
     {
-    // app.get('/user/getusername', (req,res)=>{//converts a userID into a username
-    //     let {user_id}= req.body;
-    //     knex('users')
-    //         .select("*")
-    //         .where({id: user_id})
-    //         .then(data=> {
-    //             res.status(200).send({username:data[0].username})
-    //         })
-    // })
+
+    app.get('/user/getusername/:user_id', (req,res)=>{//converts a userID into a username
+        knex('users')
+            .select("*")
+            .where({id: req.params.user_id})
+            .then(data=> {
+                res.status(200).send({username:data[0].username})
+            })
+    })
+
     app.get('/user/getuserid/:username', (req,res)=>{//converts a userID into a username        
         knex('users')
             .select("*")
