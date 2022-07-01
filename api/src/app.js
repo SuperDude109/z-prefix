@@ -36,7 +36,6 @@ app.get('/', (request, response) => {
 
 
     app.get('/posts/user/:userid',  (req, res) => {
-        var {userid} = req.params;
         // console.log("Here is the req "+ JSON.stringify(req.params))
         knex('posts')
             .select('*')
@@ -85,8 +84,8 @@ app.get('/', (request, response) => {
                     user_id:user_id
                 }
             )
-            .then(data=> {return res.end("success")})
-            .catch(err=>{
+            .then(()=> {return res.end("success")})
+            .catch(()=>{
                 return res.end("Title is already taken")
             })   
     }) 
@@ -100,7 +99,7 @@ app.get('/', (request, response) => {
         await knex('users')
             .insert({...values})
             .then(res.status(200).send('new user made!'))
-            .catch(err=>res.end('User unable to be made!'))
+            .catch(()=>res.end('User unable to be made!'))
      }) 
 
 }
@@ -145,7 +144,7 @@ app.get('/', (request, response) => {
                         user_id:user_id?user_id:data.user_id,
                     })
                     .where({title:title})
-                .catch(err=>res.send("Something went wrong"))
+                .catch(()=>res.send("Something went wrong"))
                 
         })
         })

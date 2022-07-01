@@ -85,7 +85,8 @@ function Post({user_id,title,content}) {
         {
           nav('/refreshing/') 
           nav('/user/posts') 
-        },500)
+        },500
+      )
     }
     setExpand(!expand)
   }
