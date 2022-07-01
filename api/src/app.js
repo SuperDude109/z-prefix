@@ -36,8 +36,7 @@ app.get('/', (request, response) => {
 
 
     app.get('/posts/user/:userid',  (req, res) => {
-        var {userid} = req.params;
-        // console.log("Here is the req "+ JSON.stringify(req.params))
+        console.log("Here is the req "+ JSON.stringify(req.params.userid))
         knex('posts')
             .select('*')
             .then( posts => 
@@ -46,8 +45,8 @@ app.get('/', (request, response) => {
                 }
             )
             .then(responseData => {
-                console.log("response data =",responseData)
-                res.end(JSON.stringify(responseData))})
+                res.end(JSON.stringify(responseData))
+            })
     })
 
     {
@@ -60,7 +59,8 @@ app.get('/', (request, response) => {
     //             res.status(200).send({username:data[0].username})
     //         })
     // })
-    app.get('/user/getuserid/:userID', (req,res)=>{//converts a userID into a username        
+    app.get('/user/getuserid/:userID', (req,res)=>{//converts a userID into a username   
+        console.log('/user/getuserid/:userID') 
         knex('users')
             .select("*")
             .where({id: req.params.userID})
@@ -127,6 +127,7 @@ app.get('/', (request, response) => {
         })
 
     app.patch('/posts', async (req, res) => {
+        
         let {title,content,user_id,post_id,new_post_id} = req.body
         await knex('posts')
             .select("*")
@@ -158,7 +159,6 @@ app.delete('/users', async (req, res) => {
     })
 
 app.delete('/posts',  async (req, res) => {
-    console.log("Attempting to delete data "+ JSON.stringify(req.body))
     knex('posts')
         .where({title: req.body.title})//could send in title and user id to verify that use owns the blog before deleting
         .then((data)=>res.end("'"+data[0].title+"' has been deleted!"))

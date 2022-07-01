@@ -14,7 +14,9 @@ import Post from "../Post";
 function Posts() {
   let {values} = useContext(AppContext)
   let {user_id} = values
+  console.log("Here is my user_id",user_id)
   let [posts,setPosts] = useState([])
+
       fetch(ApiUrl+"/posts/user/"+user_id)
       .then(res => {
         return res.json()
@@ -25,7 +27,7 @@ function Posts() {
  
   return (
     <div className='posts'>
-      {(posts)?posts.map(({user_id,title,content})=>(<Post user_id={user_id} style={{padding:"1%"}} key={title} title={title} content={content}/>)):"You have no posts yet D:"}
+      {(posts.length>0)?posts.map(({user_id,title,content})=>(<Post user_id={user_id} style={{padding:"1%"}} key={title} title={title} content={content}/>)):"You have no posts yet D:"}
     </div>
   );
 }
