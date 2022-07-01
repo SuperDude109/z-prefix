@@ -60,12 +60,12 @@ app.get('/', (request, response) => {
     //             res.status(200).send({username:data[0].username})
     //         })
     // })
-    app.get('/user/getuserid/:userID', (req,res)=>{//converts a userID into a username        
+    app.get('/user/getuserid/:username', (req,res)=>{//converts a userID into a username        
         knex('users')
             .select("*")
-            .where({id: req.params.userID})
+            .where({username: req.params.username})
             .then(data=> {
-                res.status(200).send((data.length>0)?{username:data[0].username}:{})
+                res.status(200).send((data.length>0)?{user_id:data[0].id}:{})
             })
     })
     }
