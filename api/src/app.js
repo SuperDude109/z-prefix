@@ -46,7 +46,7 @@ app.get('/', (request, response) => {
                 }
             )
             .then(responseData => {
-                // console.log("response data =",responseData)
+                console.log("response data =",responseData)
                 res.end(JSON.stringify(responseData))})
     })
 
@@ -60,14 +60,12 @@ app.get('/', (request, response) => {
     //             res.status(200).send({username:data[0].username})
     //         })
     // })
-    app.get('/user/getuserid/:username', (req,res)=>{//converts a userID into a username
-        let {username}= req.params;
-        
+    app.get('/user/getuserid/:userID', (req,res)=>{//converts a userID into a username        
         knex('users')
             .select("*")
-            .where({username: username})
+            .where({id: req.params.userID})
             .then(data=> {
-                res.status(200).send((data.length>0)?{user_id:data[0].id}:{})
+                res.status(200).send((data.length>0)?{username:data[0].username}:{})
             })
     })
     }
@@ -93,12 +91,9 @@ app.get('/', (request, response) => {
     }) 
 
      app.post('/users', async (req, res) => {
-            // "first_name": "bobby",
-            // "last_name": "jenkins",
-            // "username": "fartyboy",
-            // "password": "farty2x4",
         let {first_name,last_name,username,password}=req.body
         let values = {first_name,last_name,username,password}
+        console.log("Creating a new user")
         await knex('users')
             .insert({...values})
             .then(res.status(200).send('new user made!'))

@@ -9,6 +9,7 @@ import React from "react";
 import { useContext,useState,useEffect } from "react";
 import { AppContext } from '../../contexts/AppContext';
 import config from '../../config.js'
+import AllBlogs from './AllBlogs';
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 // import config from './config'
 
@@ -30,7 +31,7 @@ function ContentViewer() {
   return (
     <div className='content-bar' style={{padding:"1vw",background:"lightgrey", height:"100vh"}}>
         <Routes>
-          <Route path='' element={<Posts/>}/>
+          <Route path='' element={<AllBlogs/>}/>
           <Route path='/login'element={<Login/>}/> 
           <Route path='/user/posts'element={values.loggedin?<Posts/>:<div>Login to view your posts</div>}/>
           <Route path='/user'element={<Modify/>}/>
@@ -42,7 +43,7 @@ function ContentViewer() {
                         }
                     )}
                     </div>}/>
-          <Route path='/create/post' element={values.loggedin?<NewPost/>:<div>Login to view posts</div>}/>
+          <Route path='/create/post' element={values.loggedin?<NewPost/>:<div>Login to create posts</div>}/>
           <Route path='/create/user' element={values.loggedin?<div>Logout to create new user</div>:<NewUser/>}/>
         </Routes>
     </div>

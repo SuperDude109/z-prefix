@@ -37,12 +37,12 @@ function SideBar() {
           <nav>
             <Link to="/">Home</Link> <div/>
             <Link to="/user/posts">{(loggedin)?"My Posts":" "}</Link><div/>
-            <Link to="/create/post"> New Post
-            </Link><div/>
-            <Link to="/login">{(loggedin)?"Sign Off":"Log In"}</Link><div/>
+            <Link to="/create/post">{(loggedin)?" New Post":" "}</Link><div/>
             <Link to="/create/user">{(loggedin)?"":"New User?"}</Link><div/>
+            <Link to="/user">{(loggedin)?"My Info":""}</Link><div/>
+            <Link to="/login">{(loggedin)?"Sign Off":"Log In"}</Link><div/>
+            
             <Link to=""> </Link><div/>
-            <Link to="/">Contact Us </Link>
           </nav>
           {/* will have a map of all the content */}
         </div>
