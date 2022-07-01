@@ -7,8 +7,8 @@ import NewPost from './NewPost';
 import NewUser from './NewUser';
 import React from "react";
 import { useContext,useState,useEffect } from "react";
-import { LoginContext } from '../contexts/LoginContext';
-import config from '../config.js'
+import { AppContext } from '../../contexts/AppContext';
+import config from '../../config.js'
 const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 // import config from './config'
 
@@ -16,7 +16,7 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
 function ContentViewer() {
-  const logedin = useContext(LoginContext);
+  let {values} = useContext(AppContext)
 
   let [names, setNames] = useState([ ]);
 
@@ -32,7 +32,7 @@ function ContentViewer() {
         <Routes>
           <Route path='' element={<Posts/>}/>
           <Route path='/login'element={<Login/>}/> 
-          <Route path='/user/posts'element={logedin?<Posts/>:<div>Login to view your posts</div>}/>
+          <Route path='/user/posts'element={values.loggedin?<Posts/>:<div>Login to view your posts</div>}/>
           <Route path='/user'element={<Modify/>}/>
           <Route path='/users'element={
                 <div>
@@ -42,8 +42,8 @@ function ContentViewer() {
                         }
                     )}
                     </div>}/>
-          <Route path='/create/post' element={logedin?<NewPost/>:<div>Login to view posts</div>}/>
-          <Route path='/create/user' element={logedin?<div>Logout to create new user</div>:<NewUser/>}/>
+          <Route path='/create/post' element={values.loggedin?<NewPost/>:<div>Login to view posts</div>}/>
+          <Route path='/create/user' element={values.loggedin?<div>Logout to create new user</div>:<NewUser/>}/>
         </Routes>
     </div>
   );

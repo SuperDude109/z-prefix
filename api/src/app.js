@@ -174,16 +174,14 @@ app.delete('/posts',  async (req, res) => {
 
 //validate login
 {
-    app.get('/login', (req, res) => {
+    app.post('/login', (req, res) => {
+        console.log(req.body)
         knex('users')
             .select(["*"])
             .where({username:req.body.username,password:req.body.password})
             .then(users => {
-                let responseData = users.map(user => (
-                    { 
-                        login:"true"
-                    }
-                ));
+                let responseData =((users.length)?[{login:"true"}]:[{login:"false"}])
+                console.log(responseData)
         knex('post')
                 res.status(200).send(responseData)
             })

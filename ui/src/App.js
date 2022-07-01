@@ -1,21 +1,15 @@
 // import { useEffect, useState} from 'react';
 import React from 'react';
-
-
 import SideBar from './components/SideBar';
-import { LoginContext } from './contexts/LoginContext';
 import TopBar from './components/TopBar';
-import ContentViewer from './components/ContentViewer';
+import ContentViewer from './components/ContentViewer/ContentViewer';
+import { AppProvider } from "./contexts/AppContext";
 
 
 function App() {
 
-  
-
-  let logedin= false;
-
   return (
-    <LoginContext.Provider value={logedin}>
+    <AppProvider>
       <div className='webpage' style={{display:"inline-flex"}}> 
           {/* this will be where the sidebar lays */}
           <SideBar/>
@@ -24,7 +18,7 @@ function App() {
             <ContentViewer/>
           </div>
        </div>
-</LoginContext.Provider>
+    </AppProvider>
   );
 }
 

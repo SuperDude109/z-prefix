@@ -1,16 +1,16 @@
 // import { useEffect, useState} from 'react';
 import React from "react";
 import { Link } from "react-router-dom";
+import { AppContext } from '../contexts/AppContext';
 import { useContext } from "react";
-import { LoginContext } from "../contexts/LoginContext";
 // import config from './config'
 
 // const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 
 
-function SideBar(props) {
-  const logedin = useContext(LoginContext);
-console.log(props)
+function SideBar() {
+  let {values} = useContext(AppContext)
+  let {loggedin} = values
   return (
     <div className='sidebar' style={{height:"95vh", width:"10vw", background:"Grey", padding:"1vw"}}>
     sidebar
@@ -36,10 +36,10 @@ console.log(props)
         <div className='section-content'style={{background:"pink", display:"flex",flexDirection:"column",flexWrap:"nowrap" }}>
           <nav>
             <Link to="/">Home</Link> <div/>
-            <Link to="/user/posts">{logedin?"My Posts":" "}</Link><div/>
+            <Link to="/user/posts">{(loggedin)?"My Posts":" "}</Link><div/>
             <Link to="/create/post"> New Post
             </Link><div/>
-            <Link to=""></Link><div/>
+            <Link to="/login">{(loggedin)?"":"Log In"}</Link><div/>
             <Link to=""></Link><div/>
             <Link to=""> </Link><div/>
             <Link to="/">Contact Us </Link>
