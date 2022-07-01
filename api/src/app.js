@@ -75,7 +75,7 @@ app.get('/', (request, response) => {
 //create
 {
     app.post('/posts', (req, res) => {
-        // console.log("\n\nHere is the req body",req.body,"\n\n")
+        console.log("\n\nHere is the req body",req.body.title,"\n\n")
         let{title,content,user_id} = req.body
         knex('posts')
             .insert(    
@@ -90,6 +90,8 @@ app.get('/', (request, response) => {
                 return res.end("Title is already taken")
             })   
     }) 
+
+ 
 
      app.post('/users', async (req, res) => {
         let {first_name,last_name,username,password}=req.body
@@ -129,9 +131,10 @@ app.get('/', (request, response) => {
 
     app.patch('/posts', async (req, res) => {
         let {title,content,user_id,post_id,new_post_id} = req.body
+        console.log("Trying to edit a post")
         await knex('posts')
             .select("*")
-            .where({id: post_id})
+            .where({title: title})
         .then(async data =>{ //this gives us access to the old data so we don't overwrite anything
             return await knex('posts')//we don't neccesarly know what database we are in anymore so we open a new instance
                 .update(
@@ -141,7 +144,7 @@ app.get('/', (request, response) => {
                         id:(new_post_id?new_post_id:post_id),
                         user_id:user_id?user_id:data.user_id,
                     })
-                    .where({id:post_id})
+                    .where({title:title})
                 .catch(err=>res.send("Something went wrong"))
                 
         })

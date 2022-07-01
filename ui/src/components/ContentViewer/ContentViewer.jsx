@@ -43,6 +43,7 @@ function ContentViewer() {
                         }
                     )}
                     </div>}/>
+          <Route path='/edit/post' element={values.loggedin?<NewPost/>:<div>Login to create posts</div>}/>
           <Route path='/create/post' element={values.loggedin?<NewPost/>:<div>Login to create posts</div>}/>
           <Route path='/create/user' element={values.loggedin?<div>Logout to create new user</div>:<NewUser/>}/>
         </Routes>
