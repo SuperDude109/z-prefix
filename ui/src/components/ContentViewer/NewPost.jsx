@@ -1,20 +1,34 @@
-// import { useEffect, useState} from 'react';
-// import config from './config'
+import config from '../../config';
+const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
+import { AppContext } from '../../contexts/AppContext';
+import { useContext } from "react";
 import React from "react";
 
-// const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
-
-
 function NewPost() {
-  
+   let {values} = useContext(AppContext)
+  let {user_id} = values
 
   return (
-    <div className='modify'>
-      <input placeholder="Title"/>
-      <input placeholder="Content"/>
-      <button onClick={()=>{alert("attempting to make a new blog")}}>Submit</button>
+    <div className='modify' style={{display:"flex", flexDirection:"column"}}>
+      <input id="title" placeholder="Title"/>
+      <textarea id="create-post" placeholder="Type your post here" rows="32"></textarea>
+      <button onClick={()=>{sendPost()}}>Submit</button>
     </div>
   );
+
+  function sendPost(){
+    // console.log("here are our values\ntitle= "+document.getElementById("title").value)
+   const opts = {
+     method: 'POST',//using post since get does not take a body and I find it sloppy to put the username and encrypted password in the browser
+     headers: {'Content-type': 'application/json'},
+     body: JSON.stringify({
+      "title": document.getElementById("title").value,
+      "content": document.getElementById("create-post").value,
+      "user_id":user_id
+    }),
+   };
+   fetch(ApiUrl+"/posts",opts)
+  }
 }
 
 export default NewPost;

@@ -35,38 +35,42 @@ app.get('/', (request, response) => {
     })
 
 
-    app.get('/posts',  (req, res) => {
-        console.log("Here is the req",req.body)
+    app.get('/posts/user/:userid',  (req, res) => {
+        var {userid} = req.params;
+        // console.log("Here is the req "+ JSON.stringify(req.params))
         knex('posts')
             .select('*')
             .then( posts => 
-                {
-                    //using a filter we are able to get all posts or a user posts
-                    return posts.filter(post => post.user_id==(req.body.user_id?req.body.user_id:post.user_id))
+                {//using a filter we are able to get all posts or a user's posts
+                    return posts.filter(post => post.user_id==((req.params.userid!=0)?req.params.userid:post.user_id))
                 }
             )
-            .then(responseData => res.status(200).send(responseData))
+            .then(responseData => {
+                // console.log("response data =",responseData)
+                res.end(JSON.stringify(responseData))})
     })
-    
-    app.get('/user/getusername', (req,res)=>{//converts a userID into a username
-        let {user_id}= req.body;
-        knex('users')
-            .select("*")
-            .where({id: user_id})
-            .then(data=> {
-                res.status(200).send({username:data[0].username})
-            })
-    })
-    app.get('/user/getuserid', (req,res)=>{//converts a userID into a username
-        let {username}= req.body;
+
+    {
+    // app.get('/user/getusername', (req,res)=>{//converts a userID into a username
+    //     let {user_id}= req.body;
+    //     knex('users')
+    //         .select("*")
+    //         .where({id: user_id})
+    //         .then(data=> {
+    //             res.status(200).send({username:data[0].username})
+    //         })
+    // })
+    app.get('/user/getuserid/:username', (req,res)=>{//converts a userID into a username
+        let {username}= req.params;
         
         knex('users')
             .select("*")
             .where({username: username})
             .then(data=> {
-                res.status(200).send({user_id:data[0].id})
+                res.status(200).send((data.length>0)?{user_id:data[0].id}:{})
             })
     })
+    }
 }
 
 //create
@@ -152,7 +156,6 @@ app.get('/', (request, response) => {
 //delete
 {
 app.delete('/users', async (req, res) => {
-    
     await knex('users')
         .del(["*"])
         .where({username: req.body.username}) 
@@ -160,14 +163,15 @@ app.delete('/users', async (req, res) => {
     })
 
 app.delete('/posts',  async (req, res) => {
+    console.log("Attempting to delete data "+ JSON.stringify(req.body))
 
-    console.log("Attempting to delete data",req.body)
     knex('posts')
-        .where({id: req.body.post_id})
+        .where({title: req.body.title})
         .then((data)=>res.end("'"+data[0].title+"' has been deleted!"))
+
     await knex('posts')
         .del(['*'])
-        .where({id: req.body.post_id})
+        .where({title: req.body.title})
         
     })
 }
@@ -175,13 +179,13 @@ app.delete('/posts',  async (req, res) => {
 //validate login
 {
     app.post('/login', (req, res) => {
-        console.log(req.body)
+        // console.log(req.body)
         knex('users')
             .select(["*"])
             .where({username:req.body.username,password:req.body.password})
             .then(users => {
                 let responseData =((users.length)?[{login:"true"}]:[{login:"false"}])
-                console.log(responseData)
+                // console.log(responseData)
         knex('post')
                 res.status(200).send(responseData)
             })
