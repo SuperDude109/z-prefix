@@ -16,6 +16,8 @@ function Posts() {
   let {values} = useContext(AppContext)
   let {user_id} = values
   let [posts,setPosts] = useState([])
+  let [showPost,setShowPost] = useState({title:null})
+  let [displayedPost,setDisplayedPost] = useState("Loading")
   useEffect(async()=>{//utilizing this to update the screen once every second and to prevent repaid looping
     setTimeout(() => {
       fetch(ApiUrl+"/posts/user/"+user_id)
@@ -28,10 +30,35 @@ function Posts() {
     }, 500);
   },[posts])
       
- 
+  function checkTitle(post){
+    return ((showPost.title!= null)?((post.title) == showPost.title):true)
+  }
+
+  useEffect(()=>{//utilizing this to update the screen once every second and to prevent repaid looping
+    setDisplayedPost(
+    ((posts.length>0)?(posts.filter(checkTitle)
+    .map(
+      ({user_id,title,content})=>(
+        <div key={title+2}>
+          <Post 
+            user_id={user_id} 
+            style={{padding:"1%"}} 
+            key={title} 
+            title={title} 
+            content={content}
+          />
+          <button key={title+1} onClick={()=>{setShowPost({title:title})}}>Focus</button>
+        </div>
+      ))
+      ):("You have no posts yet D:")
+    )
+    )
+  },[showPost,posts])
+  // console.log(displayedPost)
+
   return (
     <div className='posts'>
-      {(posts)?posts.map(({user_id,title,content})=>(<Post user_id={user_id} style={{padding:"1%"}} key={title} title={title} content={content}/>)):"You have no posts yet D:"}
+      {displayedPost}
     </div>
   );
 }

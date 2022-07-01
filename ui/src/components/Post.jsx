@@ -85,7 +85,7 @@ function Post({user_id,title,content}) {
         {
           nav('/refreshing/') 
           nav('/user/posts') 
-        },1000)
+        },500)
     }
     setExpand(!expand)
   }
@@ -100,6 +100,11 @@ function Post({user_id,title,content}) {
       "title": title,
     }),
     };
+    setTimeout( ()=>
+        {
+          nav('/refreshing/') 
+          nav('/user/posts') 
+        },500)
     fetch(ApiUrl+"/posts",opts)
   }
 } 
