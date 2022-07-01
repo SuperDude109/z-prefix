@@ -4,13 +4,16 @@ const ApiUrl = config[process.env.REACT_APP_NODE_ENV || "development"].apiUrl;
 import React from "react";
 import { AppContext } from '../../contexts/AppContext';
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
+
 function Login() {
   let {values,setters} = useContext(AppContext)
   let {loggedin,username} = values
 
 
   useEffect(()=>console.log(loggedin,username),[loggedin])
-  
+  const nav = useNavigate()
+
   return (
     <div className='login' style={{display:"inline-grid"}}>
       <input id='username' placeholder="Username:"/>
@@ -42,8 +45,17 @@ function Login() {
       setters.setUsername(document.getElementById("username").value)
       return data[0].login
     })
-    .then((log)=>(log==="true")?setters.setLoggedin(log):alert("invalid credentials")
+    .then((log)=>(log==="true")?loggedin(log):alert("invalid credentials")
     )
+    function loggedin(log){
+      setters.setLoggedin(log)
+      setTimeout( ()=>
+        {
+          nav('/refreshing/') 
+          nav('/user/posts') 
+        },500
+      )
+    }
   }
 }
 
