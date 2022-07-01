@@ -164,15 +164,12 @@ app.delete('/users', async (req, res) => {
 
 app.delete('/posts',  async (req, res) => {
     console.log("Attempting to delete data "+ JSON.stringify(req.body))
-
     knex('posts')
-        .where({title: req.body.title})
+        .where({title: req.body.title})//could send in title and user id to verify that use owns the blog before deleting
         .then((data)=>res.end("'"+data[0].title+"' has been deleted!"))
-
     await knex('posts')
         .del(['*'])
         .where({title: req.body.title})
-        
     })
 }
 

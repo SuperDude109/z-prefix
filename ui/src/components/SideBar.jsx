@@ -39,8 +39,8 @@ function SideBar() {
             <Link to="/user/posts">{(loggedin)?"My Posts":" "}</Link><div/>
             <Link to="/create/post"> New Post
             </Link><div/>
-            <Link to="/login">{(loggedin)?"":"Log In"}</Link><div/>
-            <Link to=""></Link><div/>
+            <Link to="/login">{(loggedin)?"Sign Off":"Log In"}</Link><div/>
+            <Link to="/create/user">{(loggedin)?"":"New User?"}</Link><div/>
             <Link to=""> </Link><div/>
             <Link to="/">Contact Us </Link>
           </nav>

@@ -16,7 +16,6 @@ function NewUser() {
       <input type={"password"} placeholder="Password"/>
       <input type={"password"} placeholder="Retype Password"/>
       <button onClick={()=> {alert("Tried to make a new user.")}}>Sumbit</button>
-
     </div>
   );
 }

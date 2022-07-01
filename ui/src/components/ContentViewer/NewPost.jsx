@@ -12,12 +12,13 @@ function NewPost() {
     <div className='modify' style={{display:"flex", flexDirection:"column"}}>
       <input id="title" placeholder="Title"/>
       <textarea id="create-post" placeholder="Type your post here" rows="32"></textarea>
-      <button onClick={()=>{sendPost()}}>Submit</button>
+      {<button onClick={()=>{sendPost()}}>Submit</button>}
     </div>
   );
 
   function sendPost(){
     // console.log("here are our values\ntitle= "+document.getElementById("title").value)
+    alert("Blog has been sent in for review")
    const opts = {
      method: 'POST',//using post since get does not take a body and I find it sloppy to put the username and encrypted password in the browser
      headers: {'Content-type': 'application/json'},
