@@ -31,7 +31,7 @@ function AllBlogs() {
             title={title} 
             content={content}
           />
-          <button key={title+1} onClick={()=>{setShowPost({title:title})}}>Focus</button>
+          <button key={title+1} onClick={()=>{setShowPost({title:title})}}>Focus the Above Post</button>
         </div>
       ))
       ):("You have no posts yet D:")

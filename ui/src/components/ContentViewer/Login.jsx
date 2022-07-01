@@ -51,7 +51,6 @@ function Login() {
       setters.setLoggedin(log)
       setTimeout( ()=>
         {
-          nav('/refreshing/') 
           nav('/user/posts') 
         },500
       )

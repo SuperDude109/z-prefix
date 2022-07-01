@@ -34,7 +34,7 @@ function Posts() {
     return ((showPost.title!= null)?((post.title) == showPost.title):true)
   }
 
-  useEffect(()=>{//utilizing this to update the screen once every second and to prevent repaid looping
+  useEffect(()=>{//this is to focus the content to one
     setDisplayedPost(
     ((posts.length>0)?(posts.filter(checkTitle)
     .map(
@@ -47,7 +47,7 @@ function Posts() {
             title={title} 
             content={content}
           />
-          <button key={title+1} onClick={()=>{setShowPost({title:title})}}>Focus</button>
+          <button key={title+1} onClick={()=>{setShowPost({title:title})}}>Focus the Above Post</button>
         </div>
       ))
       ):("You have no posts yet D:")
