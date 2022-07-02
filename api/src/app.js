@@ -11,7 +11,7 @@ const knex = require('knex')(config)
 
 app.get('/', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
-    response.status(200).send('App root route running congrats');
+    response.status(200).send('zpre is up and running congratz! :D');
 })
 
 
