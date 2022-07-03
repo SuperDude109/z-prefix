@@ -32,6 +32,7 @@ app.get('/', (request, response) => {
         knex('post')
                 response.status(200).send(responseData)
             })
+            .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
     })
 
 
