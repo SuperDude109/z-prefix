@@ -32,7 +32,7 @@ app.get('/', (request, response) => {
         knex('post')
                 response.status(200).send(responseData)
             })
-            .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+            .catch((err)=>response.status(200).send("File Could not be found MAybe the databae is broken?",err))
     })
 
 
@@ -48,6 +48,8 @@ app.get('/', (request, response) => {
             .then(responseData => {
                 // console.log("response data =",responseData)
                 res.end(JSON.stringify(responseData))})
+                .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
 
     {
@@ -59,6 +61,8 @@ app.get('/', (request, response) => {
             .then(data=> {
                 res.status(200).send({username:data[0].username})
             })
+            .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
 
     app.get('/user/getuserid/:username', (req,res)=>{//converts a userID into a username        
@@ -68,7 +72,10 @@ app.get('/', (request, response) => {
             .then(data=> {
                 res.status(200).send((data.length>0)?{user_id:data[0].id}:{})
             })
+            .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
+
     }
 }
 
@@ -88,7 +95,8 @@ app.get('/', (request, response) => {
             .then(()=> {return res.end("success")})
             .catch(()=>{
                 return res.end("Title is already taken")
-            })   
+            })
+   
     }) 
 
  
@@ -101,6 +109,7 @@ app.get('/', (request, response) => {
             .insert({...values})
             .then(res.status(200).send('new user made!'))
             .catch(()=>res.end('User unable to be made!'))
+
      }) 
 
 }
@@ -127,6 +136,8 @@ app.get('/', (request, response) => {
                 .then(console.log("Things updated smooth"))
                 .then(res.status(200).send('patched!'))
         )
+        .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
         })
 
     app.patch('/posts', async (req, res) => {
@@ -159,6 +170,8 @@ app.delete('/users', async (req, res) => {
         .del(["*"])
         .where({username: req.body.username}) 
         .then(res.end( req.body.username+' has been deleted!'))
+        .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
 
 app.delete('/posts',  async (req, res) => {
@@ -166,9 +179,13 @@ app.delete('/posts',  async (req, res) => {
     knex('posts')
         .where({title: req.body.title})//could send in title and user id to verify that use owns the blog before deleting
         .then((data)=>res.end("'"+data[0].title+"' has been deleted!"))
+        .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     await knex('posts')
         .del(['*'])
         .where({title: req.body.title})
+        .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
 }
 
@@ -182,9 +199,11 @@ app.delete('/posts',  async (req, res) => {
             .then(users => {
                 let responseData =((users.length)?[{login:"true"}]:[{login:"false"}])
                 // console.log(responseData)
-        knex('post')
+            knex('post')
                 res.status(200).send(responseData)
             })
+            .catch(response.status(200).send("File Could not be found MAybe the databae is broken?"))
+
     })
 }
 module.exports = app;

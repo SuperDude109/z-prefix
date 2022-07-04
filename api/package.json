@@ -1,5 +1,5 @@
 {
-  "name": "zpre-api",
+  "name": "capstone-api",
   "version": "1.0.0",
   "description": "",
   "main": "./src/index.js",
@@ -14,7 +14,6 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.3",
-    "heroku": "^7.60.2",
     "knex": "^1.0.4",
     "pg": "^8.7.3"
   },
