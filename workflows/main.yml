@@ -21,9 +21,9 @@ jobs:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
-    # steps are the actions that will execute on this job.
+    # `steps` are the actions that will execute on this job.
     steps:
-      # Checks-out your repository under , so your job can access it
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       # Runs a single command using the runners shell to build the UI
       - name: Build UI
@@ -73,7 +73,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under , so your job can access it
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
       - uses: akhileshns/heroku-deploy@v3.12.12
         with: 
