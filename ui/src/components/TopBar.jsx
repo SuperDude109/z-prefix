@@ -12,7 +12,7 @@ function TopBar() {
   let {values} = useContext(AppContext)
   let {username} = values
   return (
-    <div className='topbar'>
+    <div className='topbar' style={{ textAlign: "center",width:"90vw",minHeight: "5vh",backgroundColor: "darkgrey"}}>
       <div className="greeting">{`Welcome ${(username.length>1)?username:"Guest"}!`}</div>
       <Routes>
         <Route path='/user/posts' element={<div>double click to delete</div>} />
