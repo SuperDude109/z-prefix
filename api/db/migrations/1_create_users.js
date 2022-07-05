@@ -9,7 +9,7 @@
     table.string('last_name', 16);
     table.string('username', 16);
     table.string('password', 32);
-    table.unique('username');
+    table.unique('username')
 })
 };
 

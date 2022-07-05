@@ -7,9 +7,9 @@
     table.increments('id');//id
     table.string('title', 64);
     table.string('content', 10000);
-    table.integer('user_id').unsigned();//can only hold positive numbers
-    table.foreign('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE');
-    table.unique('title');
+    table.integer('user_id').unsigned()//can only hold positive numbers
+    table.foreign('user_id').references('users.id').onDelete('CASCADE').onUpdate('CASCADE')
+    table.unique('title')
   })
 };
 

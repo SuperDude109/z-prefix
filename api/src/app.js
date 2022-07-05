@@ -11,7 +11,7 @@ const knex = require('knex')(config)
 
 app.get('/', (request, response) => {
     response.set("Access-Control-Allow-Origin", "*");
-    response.status(200).send('zpre is up and running congratz! :D');
+    response.status(200).send('App root route running congrats');
 })
 
 
@@ -84,7 +84,10 @@ app.get('/', (request, response) => {
                     user_id:user_id
                 }
             )
-            .then(()=> {return res.end("success")})  
+            .then(()=> {return res.end("success")})
+            .catch(()=>{
+                return res.end("Title is already taken")
+            })   
     }) 
 
  
